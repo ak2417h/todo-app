@@ -30,7 +30,7 @@ class _signupState extends State<signup> {
               }),
             ),
             TextButton(onPressed: () => null, child: Text("Sign Up")),
-            Text(email + " " + pw + " firebase")
+            Text(email + " " + pw + " .firebase")
           ],
         ),
       ),
