@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class signup extends StatefulWidget {
   const signup({super.key});
@@ -8,8 +9,22 @@ class signup extends StatefulWidget {
 }
 
 class _signupState extends State<signup> {
-  String email = "";
-  String pw = "";
+
+  String _email = "";
+  String _pw = "";
+
+  Future signupmethod() async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _email,
+        password: _pw,
+      );
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.code)));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,17 +35,16 @@ class _signupState extends State<signup> {
             TextField(
               decoration: InputDecoration(hintText: "Email"),
               onChanged: (value) => setState(() {
-                email = value;
+                _email = value;
               }),
             ),
             TextField(
               decoration: InputDecoration(hintText: "Password"),
               onChanged: (value) => setState(() {
-                pw = value;
+                _pw = value;
               }),
             ),
-            TextButton(onPressed: () => null, child: Text("Sign Up")),
-            Text(email + " " + pw + " .firebase")
+            TextButton(onPressed: () => signupmethod(), child: Text("Sign Up")),
           ],
         ),
       ),
