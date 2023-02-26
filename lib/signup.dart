@@ -9,7 +9,6 @@ class signup extends StatefulWidget {
 }
 
 class _signupState extends State<signup> {
-
   String _email = "";
   String _pw = "";
 
@@ -30,23 +29,59 @@ class _signupState extends State<signup> {
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFF6459E2),
+            Colors.blue[400]!,
+            Colors.blue[100]!,
+          ],
+        )),
         child: Column(
           children: [
-            TextField(
-              decoration: InputDecoration(hintText: "Email"),
-              onChanged: (value) => setState(() {
-                _email = value;
-              }),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.33,
             ),
-            TextField(
-              decoration: InputDecoration(hintText: "Password"),
-              onChanged: (value) => setState(() {
-                _pw = value;
-              }),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.75,
+              child: TextField(
+                decoration: InputDecoration(hintText: "Email"),
+                onChanged: (value) => setState(() {
+                  _email = value;
+                }),
+              ),
             ),
-            TextButton(onPressed: () => signupmethod(), child: Text("Sign Up")),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.75,
+              child: TextField(
+                decoration: InputDecoration(hintText: "Password"),
+                onChanged: (value) => setState(() {
+                  _pw = value;
+                }),
+              ),
+            ),
+            Container(
+                child: TextButton(
+                    onPressed: () => signupmethod(),
+                    child: Text(
+                      "Sign Up",
+                      style: TextStyle(color: Colors.black),
+                    ))),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.4,
+            ),
+            Container(
+              child: Text("HI"),
+            )
           ],
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => null,
+        child: Icon(Icons.abc),
       ),
     );
   }
