@@ -5,7 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'login.dart';
-import 'homepage.dart';
+// import 'homepage.dart';
+import 'forgotpass.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,11 +17,12 @@ void main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute:
-          FirebaseAuth.instance.currentUser != null ? "login" : "login",
+          FirebaseAuth.instance.currentUser != null ? "signup" : "signup",
       routes: {
         "login": (context) => login(),
         "signup": (context) => signup(),
         "homepage": (context) => homepage(),
+        "forgotpass": (context) => forgotpass(),
       },
     ),
   );

@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class login extends StatefulWidget {
   const login({super.key});
@@ -11,6 +15,17 @@ class _loginState extends State<login> {
   String _email = "";
   String _pw = "";
   bool hp = true;
+
+  Future<void> loginmethod() async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: _email, password: _pw);
+      Navigator.pushNamed(context, "homepage");
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +69,7 @@ class _loginState extends State<login> {
                   labelText: "Email",
                   prefixIcon: Icon(
                     Icons.email,
+                    color: Colors.grey[800],
                   ),
                 ),
                 onChanged: (value) => setState(() {
@@ -62,17 +78,24 @@ class _loginState extends State<login> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(bottom: 35),
+              margin: EdgeInsets.only(bottom: 10),
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width * 0.8,
               child: TextField(
                 obscureText: hp,
                 decoration: InputDecoration(
+                  labelStyle: TextStyle(
+                    color: Colors.black,
+                  ),
                   labelText: "Password",
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: Colors.grey[800],
+                  ),
                   suffixIcon: IconButton(
                     icon: Icon(
                       hp ? Icons.remove_red_eye : Icons.remove_red_eye_outlined,
+                      color: Colors.grey[800],
                     ),
                     onPressed: () => setState(() {
                       hp = !hp;
@@ -84,9 +107,27 @@ class _loginState extends State<login> {
                 }),
               ),
             ),
+            Container(
+              margin: EdgeInsets.only(bottom: 15),
+              width: MediaQuery.of(context).size.width * 0.85,
+              alignment: Alignment.centerRight,
+              child: RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                      text: "Don't Have An Account?",
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.pushNamed(context, "signup");
+                        }),
+                ]),
+              ),
+            ),
             SizedBox(
               height: 40,
-              width: MediaQuery.of(context).size.width * 0.8,
+              width: MediaQuery.of(context).size.width * 0.85,
               child: TextButton(
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -94,13 +135,35 @@ class _loginState extends State<login> {
                     borderRadius: BorderRadius.circular(13),
                   ),
                 ),
-                onPressed: () => Navigator.pushNamed(context, "homepage"),
+                onPressed: () => loginmethod(),
                 child: Text(
                   "Login",
                   style: TextStyle(
-                    color: Colors.grey[600],
+                    // color: Colors.grey[600],
+                    color: Colors.grey[800],
                     fontWeight: FontWeight.bold,
+                    fontSize: 17,
                   ),
+                ),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.85,
+              margin: EdgeInsets.only(top: 7.5),
+              alignment: Alignment.centerRight,
+              child: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                        text: "Forgot Password",
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.pushNamed(context, "forgotpass");
+                          }),
+                  ],
                 ),
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'customclass.dart';
 
 class homepage extends StatefulWidget {
   const homepage({super.key});
@@ -10,28 +11,17 @@ class homepage extends StatefulWidget {
 }
 
 class _homepageState extends State<homepage> {
-  String a = "";
-
-  Future<void> func() async {
-    final db = FirebaseFirestore.instance
-        .collection("user")
-        .doc(FirebaseAuth.instance.currentUser?.uid);
-    a = await db.get().then((value) => value.data()!["name"]);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-        Text(
-          "Welcome",
-        ),
+        name(),
         TextButton(
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
-              Navigator.pushNamed(context, "signup");
+              Navigator.pushNamed(context, "login");
             },
-            child: Text("CLICK"))
+            child: Text("Logout"))
       ]),
     );
   }

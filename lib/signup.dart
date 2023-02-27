@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -22,6 +23,7 @@ class _signupState extends State<signup> {
         email: _email,
         password: _pw,
       );
+      Navigator.pushNamed(context, "homepage");
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.code)));
@@ -68,12 +70,13 @@ class _signupState extends State<signup> {
             ),
             Container(
               alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width * 0.8,
+              width: MediaQuery.of(context).size.width * 0.85,
               child: TextField(
                 decoration: InputDecoration(
                   labelText: "Name",
                   prefixIcon: Icon(
                     Icons.person,
+                    color: Colors.grey[800],
                   ),
                 ),
                 onChanged: (value) => setState(() {
@@ -83,12 +86,13 @@ class _signupState extends State<signup> {
             ),
             Container(
               alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width * 0.8,
+              width: MediaQuery.of(context).size.width * 0.85,
               child: TextField(
                 decoration: InputDecoration(
                   labelText: "Email",
                   prefixIcon: Icon(
                     Icons.email,
+                    color: Colors.grey[800],
                   ),
                 ),
                 onChanged: (value) => setState(() {
@@ -97,17 +101,21 @@ class _signupState extends State<signup> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(bottom: 35),
+              margin: EdgeInsets.only(bottom: 10),
               alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width * 0.8,
+              width: MediaQuery.of(context).size.width * 0.85,
               child: TextField(
                 obscureText: hp,
                 decoration: InputDecoration(
                   labelText: "Password",
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: Colors.grey[800],
+                  ),
                   suffixIcon: IconButton(
                     icon: Icon(
                       hp ? Icons.remove_red_eye : Icons.remove_red_eye_outlined,
+                      color: Colors.grey[800],
                     ),
                     onPressed: () => setState(() {
                       hp = !hp;
@@ -119,9 +127,27 @@ class _signupState extends State<signup> {
                 }),
               ),
             ),
+            Container(
+              margin: EdgeInsets.only(bottom: 15),
+              width: MediaQuery.of(context).size.width * 0.85,
+              alignment: Alignment.centerRight,
+              child: RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                      text: "Already Have An Account?",
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.pushNamed(context, "login");
+                        }),
+                ]),
+              ),
+            ),
             SizedBox(
               height: 40,
-              width: MediaQuery.of(context).size.width * 0.8,
+              width: MediaQuery.of(context).size.width * 0.85,
               child: TextButton(
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -133,8 +159,10 @@ class _signupState extends State<signup> {
                 child: Text(
                   "Sign Up",
                   style: TextStyle(
-                    color: Colors.grey[600],
+                    // color: Colors.grey[600],
+                    color: Colors.grey[800],
                     fontWeight: FontWeight.bold,
+                    fontSize: 17,
                   ),
                 ),
               ),
