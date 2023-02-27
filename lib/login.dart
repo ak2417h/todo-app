@@ -1,36 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-class signup extends StatefulWidget {
-  const signup({super.key});
+class login extends StatefulWidget {
+  const login({super.key});
 
   @override
-  State<signup> createState() => _signupState();
+  State<login> createState() => _loginState();
 }
 
-class _signupState extends State<signup> {
-  String _name = "";
+class _loginState extends State<login> {
   String _email = "";
   String _pw = "";
   bool hp = true;
-
-  Future signupmethod() async {
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _email,
-        password: _pw,
-      );
-    } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.code)));
-    }
-    final db = FirebaseFirestore.instance
-        .collection("user")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .set({"name": _name});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +36,7 @@ class _signupState extends State<signup> {
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.only(left: 35),
               child: Text(
-                "Create\nAccount",
+                "Welcome\nBack",
                 style: TextStyle(
                   fontSize: 50,
                   color: Colors.white,
@@ -65,21 +45,6 @@ class _signupState extends State<signup> {
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.15,
-            ),
-            Container(
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: "Name",
-                  prefixIcon: Icon(
-                    Icons.person,
-                  ),
-                ),
-                onChanged: (value) => setState(() {
-                  _name = value;
-                }),
-              ),
             ),
             Container(
               alignment: Alignment.center,
@@ -129,9 +94,9 @@ class _signupState extends State<signup> {
                     borderRadius: BorderRadius.circular(13),
                   ),
                 ),
-                onPressed: () => signupmethod(),
+                onPressed: () => Navigator.pushNamed(context, "homepage"),
                 child: Text(
-                  "Sign Up",
+                  "Login",
                   style: TextStyle(
                     color: Colors.grey[600],
                     fontWeight: FontWeight.bold,
@@ -142,13 +107,6 @@ class _signupState extends State<signup> {
           ],
         ),
       ),
-      /*
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => null,
-        child: Icon(Icons.abc),
-      ),
-      */
     );
   }
 }
