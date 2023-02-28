@@ -45,7 +45,7 @@ class _nameState extends State<name> {
           return Container(
             alignment: Alignment.center,
             child: Text(
-              "Welcome " + snapshot.data.data()!["name"],
+              "Welcome " + snapshot.data.data()!["name"] + "!",
               style: TextStyle(
                 fontSize: 35,
               ),
@@ -53,7 +53,8 @@ class _nameState extends State<name> {
           );
         }
         if (snapshot.hasError) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error")));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text("Error")));
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
