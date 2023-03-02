@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'start.dart';
+import 'home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _mainpageState extends State<mainpage> {
   Widget build(BuildContext context) {
     List<Widget> wl = [
       startClass(),
-      Text("NOTHING"),
+      home(),
       Center(
         child: Column(
           children: [

@@ -67,6 +67,9 @@ class _loginState extends State<login> {
               child: TextField(
                 decoration: InputDecoration(
                   labelText: "Email",
+                  labelStyle: TextStyle(
+                    color: Colors.black,
+                  ),
                   prefixIcon: Icon(
                     Icons.email,
                     color: Colors.grey[800],

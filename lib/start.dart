@@ -42,15 +42,51 @@ class _startClassState extends State<startClass> {
       future: db.get(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData) {
-          return Container(
-            alignment: Alignment.center,
-            child: Text(
-              "Welcome " + snapshot.data.data()!["name"] + "!",
-              style: TextStyle(
-                fontSize: 35,
+          try {
+            var name = snapshot.data.data()!["name"];
+            return Container(
+              alignment: Alignment.center,
+              child: Text(
+                "Welcome " + snapshot.data.data()!["name"] + "!",
+                style: TextStyle(
+                  fontSize: 35,
+                ),
               ),
-            ),
-          );
+            );
+          } catch (e) {
+            if (e.toString() ==
+                "type 'Null' is not a subtype of type 'String'") {
+              return Container(
+                alignment: Alignment.center,
+                child: Text(
+                  "no name",
+                  style: TextStyle(
+                    fontSize: 35,
+                  ),
+                ),
+              );
+            }
+            else if (e.toString() == "Null check operator used on a null value"){
+              return Container(
+                alignment: Alignment.center,
+                child: Text(
+                  "name doesnt exist",
+                  style: TextStyle(
+                    fontSize: 35,
+                  ),
+                ),
+              );
+            }
+            return Container(
+              alignment: Alignment.center,
+              child: Text(
+                e.toString(),
+                style: TextStyle(
+                  fontSize: 35,
+                ),
+              ),
+            );
+          }
         }
         if (snapshot.hasError) {
           ScaffoldMessenger.of(context)
@@ -62,14 +98,5 @@ class _startClassState extends State<startClass> {
         return Center(child: CircularProgressIndicator());
       },
     );
-    // return Container(
-    //   alignment: Alignment.center,
-    //   child: Text(
-    //     "Welcome " + a,
-    //     style: TextStyle(
-    //       fontSize: 35,
-    //     ),
-    //   ),
-    // );
   }
 }

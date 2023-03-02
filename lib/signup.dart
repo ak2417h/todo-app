@@ -74,6 +74,9 @@ class _signupState extends State<signup> {
               child: TextField(
                 decoration: InputDecoration(
                   labelText: "Name",
+                  labelStyle: TextStyle(
+                    color: Colors.black,
+                  ),
                   prefixIcon: Icon(
                     Icons.person,
                     color: Colors.grey[800],
@@ -90,6 +93,9 @@ class _signupState extends State<signup> {
               child: TextField(
                 decoration: InputDecoration(
                   labelText: "Email",
+                  labelStyle: TextStyle(
+                    color: Colors.black,
+                  ),
                   prefixIcon: Icon(
                     Icons.email,
                     color: Colors.grey[800],
@@ -108,6 +114,9 @@ class _signupState extends State<signup> {
                 obscureText: hp,
                 decoration: InputDecoration(
                   labelText: "Password",
+                  labelStyle: TextStyle(
+                    color: Colors.black,
+                  ),
                   prefixIcon: Icon(
                     Icons.lock,
                     color: Colors.grey[800],
@@ -172,13 +181,6 @@ class _signupState extends State<signup> {
           ],
         ),
       ),
-      /*
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => null,
-        child: Icon(Icons.abc),
-      ),
-      */
     );
   }
 }
