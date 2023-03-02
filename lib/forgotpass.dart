@@ -48,7 +48,7 @@ class _forgotpassState extends State<forgotpass> {
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
                   color: Colors.black,
-                  width: 5,
+                  width: 4,
                 ),
               ),
               child: Column(

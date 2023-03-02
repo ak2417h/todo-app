@@ -6,14 +6,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class name extends StatefulWidget {
-  const name({super.key});
+class startClass extends StatefulWidget {
+  const startClass({super.key});
 
   @override
-  State<name> createState() => _nameState();
+  State<startClass> createState() => _startClassState();
 }
 
-class _nameState extends State<name> {
+class _startClassState extends State<startClass> {
   @override
   String a = "";
 

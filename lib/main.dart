@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/homepage.dart';
 import 'signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'login.dart';
-// import 'homepage.dart';
+import 'mainpage.dart';
 import 'forgotpass.dart';
 
 void main() async {
@@ -21,7 +20,7 @@ void main() async {
       routes: {
         "login": (context) => login(),
         "signup": (context) => signup(),
-        "homepage": (context) => homepage(),
+        "mainpage": (context) => mainpage(),
         "forgotpass": (context) => forgotpass(),
       },
     ),

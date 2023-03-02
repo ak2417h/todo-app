@@ -23,7 +23,7 @@ class _signupState extends State<signup> {
         email: _email,
         password: _pw,
       );
-      Navigator.pushNamed(context, "homepage");
+      Navigator.pushNamed(context, "mainpage");
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.code)));

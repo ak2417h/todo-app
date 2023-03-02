@@ -20,7 +20,7 @@ class _loginState extends State<login> {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: _email, password: _pw);
-      Navigator.pushNamed(context, "homepage");
+      Navigator.pushNamed(context, "mainpage");
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));

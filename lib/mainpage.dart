@@ -1,26 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'hpClass.dart';
+import 'start.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class homepage extends StatefulWidget {
-  const homepage({super.key});
+class mainpage extends StatefulWidget {
+  const mainpage({super.key});
 
   @override
-  State<homepage> createState() => _homepageState();
+  State<mainpage> createState() => _mainpageState();
 }
 
-class _homepageState extends State<homepage> {
+class _mainpageState extends State<mainpage> {
   @override
   int ci = 0;
 
   Widget build(BuildContext context) {
     List<Widget> wl = [
-      name(),
+      startClass(),
       Text("NOTHING"),
       Center(
         child: Column(
