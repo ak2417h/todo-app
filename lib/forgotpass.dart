@@ -13,6 +13,18 @@ class forgotpass extends StatefulWidget {
 
 class _forgotpassState extends State<forgotpass> {
   @override
+  String _email = "";
+
+  Future<void> resetPass() async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: _email);
+      Navigator.pushNamed(context, "login");
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -36,7 +48,7 @@ class _forgotpassState extends State<forgotpass> {
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
                   color: Colors.black,
-                  width: 3,
+                  width: 5,
                 ),
               ),
               child: Column(
@@ -56,10 +68,16 @@ class _forgotpassState extends State<forgotpass> {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.725,
                       child: TextField(
+                        onChanged: (value) => _email = value,
                         decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.email),
-                          labelText: "Enter your email",
-                        ),
+                            prefixIcon: Icon(
+                              Icons.email,
+                              color: Colors.grey[800],
+                            ),
+                            labelText: "Enter your email",
+                            labelStyle: TextStyle(
+                              color: Colors.grey[800],
+                            )),
                       ),
                     ),
                   ),
@@ -76,10 +94,12 @@ class _forgotpassState extends State<forgotpass> {
                       child: Text(
                         "Reset Password",
                         style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      onPressed: () => null,
+                      onPressed: () => resetPass(),
                     ),
                   ),
                   Container(
