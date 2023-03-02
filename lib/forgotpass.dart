@@ -52,48 +52,56 @@ class _forgotpassState extends State<forgotpass> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 100),
+                    margin: EdgeInsets.fromLTRB(0, 70, 0, 25),
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.675,
+                      width: MediaQuery.of(context).size.width * 0.725,
                       child: TextField(
                         decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.email),
                           labelText: "Enter your email",
                         ),
                       ),
                     ),
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.75,
-                    child: Container(
-                      color: Colors.white,
-                      margin: EdgeInsets.only(top: 25),
-                      child: TextButton(
-                        child: Text(
-                          "Reset Password",
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
+                    height: 40,
+                    width: MediaQuery.of(context).size.width * 0.725,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(13),
                         ),
-                        onPressed: () => null,
                       ),
+                      child: Text(
+                        "Reset Password",
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                      onPressed: () => null,
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 15),
+                    margin: EdgeInsets.only(top: 17.5),
                     child: RichText(
-                        text: TextSpan(children: [
-                      TextSpan(
-                        text: "Go Back To Login Page",
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.black,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.pushNamed(context, "login");
-                          },
-                      )
-                    ])),
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Go Back To Login Page",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              decoration: TextDecoration.underline,
+                              color: Colors.black,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.pushNamed(context, "login");
+                              },
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
