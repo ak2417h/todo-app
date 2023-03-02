@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class forgotpass extends StatefulWidget {
   const forgotpass({super.key});
@@ -26,7 +30,7 @@ class _forgotpassState extends State<forgotpass> {
           ),
           child: Center(
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.45,
               width: MediaQuery.of(context).size.width * 0.85,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
@@ -57,6 +61,39 @@ class _forgotpassState extends State<forgotpass> {
                         ),
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.75,
+                    child: Container(
+                      color: Colors.white,
+                      margin: EdgeInsets.only(top: 25),
+                      child: TextButton(
+                        child: Text(
+                          "Reset Password",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        onPressed: () => null,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 15),
+                    child: RichText(
+                        text: TextSpan(children: [
+                      TextSpan(
+                        text: "Go Back To Login Page",
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.black,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.pushNamed(context, "login");
+                          },
+                      )
+                    ])),
                   ),
                 ],
               ),

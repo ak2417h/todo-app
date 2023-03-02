@@ -136,6 +136,8 @@ class _signupState extends State<signup> {
                   TextSpan(
                       text: "Already Have An Account?",
                       style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
                         decoration: TextDecoration.underline,
                       ),
                       recognizer: TapGestureRecognizer()

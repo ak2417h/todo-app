@@ -116,7 +116,9 @@ class _loginState extends State<login> {
                   TextSpan(
                       text: "Don't Have An Account?",
                       style: TextStyle(
+                        color: Colors.black,
                         decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.w500,
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
@@ -158,6 +160,8 @@ class _loginState extends State<login> {
                         text: "Forgot Password",
                         style: TextStyle(
                           decoration: TextDecoration.underline,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
