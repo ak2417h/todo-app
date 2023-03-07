@@ -29,7 +29,8 @@ class _signupState extends State<signup> {
           .showSnackBar(SnackBar(content: Text(e.code)));
     }
     final db = FirebaseFirestore.instance
-        .collection("user")
+        .collection("user");
+        db
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .set({"name": _name});
   }

@@ -17,10 +17,54 @@ class _homeState extends State<home> {
   @override
   int s = 1;
   String task = "";
+  final db = FirebaseFirestore.instance
+      .collection("user")
+      .doc(FirebaseAuth.instance.currentUser!.uid);
+  // final db = FirebaseFirestore.instance.collection("user").doc(FirebaseAuth.instance.currentUser!.uid);
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [],
+      body: Center(
+        child: StreamBuilder(
+          stream: db.snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (!snapshot.hasData) {
+              return CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text("ERROR")));
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            }
+            if (snapshot.hasData) {
+              Map<String, dynamic> a = snapshot.data.data();
+              List<dynamic> al = a.values
+                  .where((element) => element != snapshot.data.data()!["name"])
+                  .toList();
+              try {
+                return Column(
+                  children: al.map((e) {
+                    return Card(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          labelText: "Task 1" + snapshot.data.data()!["Task 1"],
+                        ),
+                        onChanged: (value) {
+                          FirebaseFirestore.instance
+                              .collection("user")
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .update({"Task 1": value});
+                        },
+                      ),
+                    );
+                  }).toList(),
+                );
+              } catch (e) {
+                return CircularProgressIndicator();
+              }
+            }
+            return CircularProgressIndicator();
+          },
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
