@@ -21,6 +21,7 @@ class _startClassState extends State<startClass> {
       .collection("user")
       .doc(FirebaseAuth.instance.currentUser!.uid);
 
+  /*
   Future<void> func() async {
     try {
       final db = FirebaseFirestore.instance;
@@ -35,16 +36,17 @@ class _startClassState extends State<startClass> {
       });
     } catch (e) {}
   }
+  */
 
   Widget build(BuildContext context) {
-    func();
-    return FutureBuilder(
-      future: db.get(),
+    return StreamBuilder(
+      stream: db.snapshots(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData) {
           try {
             var name = snapshot.data.data()!["name"];
             return Container(
+              decoration: BoxDecoration(color: Colors.indigo[300]),
               alignment: Alignment.center,
               child: Text(
                 "Welcome " + snapshot.data.data()!["name"] + "!",
@@ -56,21 +58,23 @@ class _startClassState extends State<startClass> {
           } catch (e) {
             if (e.toString() ==
                 "type 'Null' is not a subtype of type 'String'") {
+              // no name
               return Container(
                 alignment: Alignment.center,
                 child: Text(
-                  "no name",
+                  "Welcome",
                   style: TextStyle(
                     fontSize: 35,
                   ),
                 ),
               );
-            }
-            else if (e.toString() == "Null check operator used on a null value"){
+            } else if (e.toString() ==
+                "Null check operator used on a null value") {
+              // name doesn't exist
               return Container(
                 alignment: Alignment.center,
                 child: Text(
-                  "name doesnt exist",
+                  "Welcome",
                   style: TextStyle(
                     fontSize: 35,
                   ),

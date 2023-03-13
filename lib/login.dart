@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 class login extends StatefulWidget {
   const login({super.key});
@@ -21,7 +23,7 @@ class _loginState extends State<login> {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: _email, password: _pw);
       Navigator.pushNamed(context, "mainpage");
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
@@ -36,9 +38,12 @@ class _loginState extends State<login> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color(0xFF6459E2),
-            Colors.blue[400]!,
-            Colors.blue[100]!,
+            Colors.indigo[600]!,
+            Colors.indigo[400]!,
+            Colors.indigo[100]!,
+            // Color(0xFF6459E2),
+            // Colors.blue[400]!,
+            // Colors.blue[100]!,
           ],
         )),
         child: Column(
@@ -65,7 +70,11 @@ class _loginState extends State<login> {
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width * 0.8,
               child: TextField(
+                cursorColor: Colors.grey[800],
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[800]!),
+                  ),
                   labelText: "Email",
                   labelStyle: TextStyle(
                     color: Colors.black,
@@ -85,8 +94,12 @@ class _loginState extends State<login> {
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width * 0.8,
               child: TextField(
+                cursorColor: Colors.grey[800],
                 obscureText: hp,
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[800]!),
+                  ),
                   labelStyle: TextStyle(
                     color: Colors.black,
                   ),

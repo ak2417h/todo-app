@@ -23,16 +23,19 @@ class _signupState extends State<signup> {
         email: _email,
         password: _pw,
       );
+      FirebaseFirestore.instance
+          .collection("user")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .set({"name": _name});
+      // FirebaseFirestore.instance
+      //   .collection("user")
+      //   .doc(FirebaseAuth.instance.currentUser!.uid)
+      //   .set({"info": {"Task 1" : " "}},SetOptions(merge: true));
       Navigator.pushNamed(context, "mainpage");
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.code)));
     }
-    final db = FirebaseFirestore.instance
-        .collection("user");
-        db
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .set({"name": _name});
   }
 
   @override
@@ -44,9 +47,12 @@ class _signupState extends State<signup> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color(0xFF6459E2),
-            Colors.blue[400]!,
-            Colors.blue[100]!,
+            Colors.indigo[600]!,
+            Colors.indigo[400]!,
+            Colors.indigo[100]!,
+            // Color(0xFF6459E2),
+            // Colors.blue[400]!,
+            // Colors.blue[100]!,
           ],
         )),
         child: Column(
@@ -73,7 +79,11 @@ class _signupState extends State<signup> {
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width * 0.85,
               child: TextField(
+                cursorColor: Colors.grey[800],
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[800]!),
+                  ),
                   labelText: "Name",
                   labelStyle: TextStyle(
                     color: Colors.black,
@@ -92,7 +102,11 @@ class _signupState extends State<signup> {
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width * 0.85,
               child: TextField(
+                cursorColor: Colors.grey[800],
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[800]!),
+                  ),
                   labelText: "Email",
                   labelStyle: TextStyle(
                     color: Colors.black,
@@ -112,8 +126,12 @@ class _signupState extends State<signup> {
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width * 0.85,
               child: TextField(
+                cursorColor: Colors.grey[800],
                 obscureText: hp,
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[800]!),
+                  ),
                   labelText: "Password",
                   labelStyle: TextStyle(
                     color: Colors.black,

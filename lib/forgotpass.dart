@@ -34,9 +34,9 @@ class _forgotpassState extends State<forgotpass> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Color(0xFF6459E2),
-                Colors.blue[400]!,
-                Colors.blue[100]!,
+                Colors.indigo[600]!,
+                Colors.indigo[400]!,
+                Colors.indigo[100]!,
               ],
             ),
           ),
@@ -68,8 +68,12 @@ class _forgotpassState extends State<forgotpass> {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.725,
                       child: TextField(
+                        cursorColor: Colors.grey[800],
                         onChanged: (value) => _email = value,
                         decoration: InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey[800]!),
+                            ),
                             prefixIcon: Icon(
                               Icons.email,
                               color: Colors.grey[800],
