@@ -7,8 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 class card_info extends StatefulWidget {
   // const test({super.key});
   dynamic idk;
-
-  card_info({required this.idk});
+  Function delete;
+  card_info({required this.idk, required this.delete});
 
   @override
   State<card_info> createState() => _card_infoState();
@@ -21,15 +21,40 @@ class _card_infoState extends State<card_info> {
       Map<String, dynamic> _map = widget.idk;
       List alist = widget.idk.keys.toList();
       alist.sort();
-      if (widget.idk == null) {
-        return Center();
-      } else {
-        return Column(
-          children: alist.map((e) {
-            return Text(e);
-          }).toList(),
-        );
-      }
+      return Column(
+        children: alist.map((e) {
+          final textcontroller = TextEditingController(text: _map[e]);
+          return Card(
+            child: Container(
+              width: 339,
+              height: 100 / 2,
+              child: TextField(
+                controller: textcontroller,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  suffixIcon: Icon(Icons.delete_rounded),
+                ),
+              ),
+            ),
+            /*
+            child: TextFormField(
+              initialValue: _map[e],
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  onPressed: () => setState(
+                    () {
+                      widget.delete(e);
+                    },
+                  ),
+                  icon: Icon(Icons.delete_rounded),
+                ),
+              ),
+              onChanged: (value) {},
+            ),
+            */
+          );
+        }).toList(),
+      );
     } catch (e) {
       return Column(
         children: [

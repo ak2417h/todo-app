@@ -41,11 +41,25 @@ class _homeState extends State<home> {
                 return Scaffold(
                   body: Center(
                     child: Column(
-                      // children: snapshot.data.data()["info"].values.map((e) {
-                      //   Text(e);
-                      // }).toList(),
                       children: [
-                        card_info(idk: snapshot.data.data()["info"]),
+                        card_info(
+                          idk: snapshot.data.data()["info"],
+                          delete: (value) {
+                            Map<String, dynamic> temp_map =
+                                snapshot.data.data()["info"];
+                            temp_map.remove(value);
+                            // throw (temp_map);
+                            FirebaseFirestore.instance
+                                .collection("user")
+                                .doc(FirebaseAuth.instance.currentUser?.uid)
+                                .set(
+                              {
+                                "info": temp_map,
+                                "name": snapshot.data.data()["name"]
+                              },
+                            );
+                          },
+                        ),
                         // Text(
                         //   snapshot.data.data()["info"].values.toString(),
                         // )
