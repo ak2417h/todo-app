@@ -3,9 +3,9 @@ import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
-import 'card.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'task_card.dart';
 
 class home extends StatefulWidget {
   const home({super.key});
@@ -28,15 +28,6 @@ class _homeState extends State<home> {
               .doc(FirebaseAuth.instance.currentUser!.uid)
               .snapshots(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            // List<String> alist;
-            //     if (snapshot.data.data().legnth == 1) {
-            //       List<String> alist = [];
-            //     } else {
-            //       List<String> alist = snapshot.data.data()["info"].keys;
-            //       alist.sort((a, b) {
-            //         return a.compareTo(b);
-            //       });
-            //     }
             if (!snapshot.hasData) {
               return CircularProgressIndicator();
             } else if (snapshot.hasError) {
@@ -53,20 +44,14 @@ class _homeState extends State<home> {
                       // children: snapshot.data.data()["info"].values.map((e) {
                       //   Text(e);
                       // }).toList(),
-                      children: [Text("HI")],
+                      children: [
+                        card_info(idk: snapshot.data.data()["info"]),
+                        // Text(
+                        //   snapshot.data.data()["info"].values.toString(),
+                        // )
+                      ],
                     ),
                   ),
-                  /*
-                  body: Container(
-                    alignment: Alignment.center,
-                    width: 350,
-                    child: Expanded(
-                      child: Text(
-                        snapshot.data.data().toString(),
-                      ),
-                    ),
-                  ),
-                  */
                   floatingActionButtonLocation:
                       FloatingActionButtonLocation.centerFloat,
                   floatingActionButton: FloatingActionButton.extended(
@@ -115,12 +100,20 @@ class _homeState extends State<home> {
                                       } else {
                                         Map<String, dynamic> _map =
                                             snapshot.data.data()["info"];
-                                        _map["Task " +
-                                            (snapshot.data
+                                        List tempList = snapshot.data
+                                            .data()["info"]
+                                            .keys
+                                            .toList();
+                                        tempList.sort();
+                                        int tempInt = int.parse(tempList
+                                                .elementAt(snapshot.data
                                                         .data()["info"]
-                                                        .length +
+                                                        .length -
                                                     1)
-                                                .toString()] = task;
+                                                .split(" ")[1]) +
+                                            1;
+                                        _map["Task " + tempInt.toString()] =
+                                            task;
                                         FirebaseFirestore.instance
                                             .collection("user")
                                             .doc(FirebaseAuth
@@ -145,19 +138,10 @@ class _homeState extends State<home> {
                     },
                   ),
                 );
-                /*
-                return Column(
-                  children: al.map(
-                    (e) {
-                      return card_data(tn: e, tv: _map![e]);
-                    },
-                  ).toList(),
-                );
-                */
               } catch (e) {
                 return Center(
                   child: Text(
-                    "ERROR",
+                    e.toString(),
                     style: TextStyle(fontSize: 50),
                   ),
                 );

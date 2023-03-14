@@ -1,3 +1,5 @@
+// import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -73,13 +75,15 @@ class _acc_settingState extends State<acc_setting> {
                               .collection("user")
                               .doc(FirebaseAuth.instance.currentUser?.uid)
                               .delete();
+                              // FirebaseAuth.instance.currentUser?.refreshToken;
+                              // await user?.reauthenticateWithCredential();
                           await user?.delete();
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text("Account successfully deleted")));
                           Navigator.pushNamed(context, "signup");
                         } catch (e) {
                           ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(content: Text("error")));
+                              .showSnackBar(SnackBar(content: Text(e.toString())));
                           signOut();
                         }
                       },
@@ -179,8 +183,8 @@ class _acc_settingState extends State<acc_setting> {
                   suffixIcon: IconButton(
                     // Icon to
                     icon: Icon(show
-                        ? Icons.visibility
-                        : Icons.visibility_off), // clear text
+                        ? Icons.remove_red_eye
+                        : Icons.remove_red_eye_outlined), // clear text
                     onPressed: () => setState(() {
                       show = !show;
                     }),
