@@ -23,8 +23,8 @@ class _acc_settingState extends State<acc_setting> {
   @override
   final user = FirebaseAuth.instance.currentUser;
   // String email = user?.email;
-  String? email = FirebaseAuth.instance.currentUser?.email;
-  final fieldText = TextEditingController(
+  String email = FirebaseAuth.instance.currentUser!.email.toString();
+  var fieldText = TextEditingController(
       text: FirebaseAuth.instance.currentUser?.email.toString());
   // final fieldText2 = TextEditingController(text: "");
   bool show = false;
@@ -75,15 +75,15 @@ class _acc_settingState extends State<acc_setting> {
                               .collection("user")
                               .doc(FirebaseAuth.instance.currentUser?.uid)
                               .delete();
-                              // FirebaseAuth.instance.currentUser?.refreshToken;
-                              // await user?.reauthenticateWithCredential();
+                          // FirebaseAuth.instance.currentUser?.refreshToken;
+                          // await user?.reauthenticateWithCredential();
                           await user?.delete();
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text("Account successfully deleted")));
                           Navigator.pushNamed(context, "signup");
                         } catch (e) {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(content: Text(e.toString())));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(e.toString())));
                           signOut();
                         }
                       },
@@ -109,21 +109,7 @@ class _acc_settingState extends State<acc_setting> {
       // backgroundColor: Color.fromRGBO(255, 255, 255, 12),
       body: Container(
         decoration: BoxDecoration(
-          // color: Colors.blue[300]!,
           color: Colors.indigo[300],
-          // gradient: LinearGradient(
-          //   begin: Alignment.topCenter,
-          //   end: Alignment.bottomCenter,
-          //   colors: [
-          //     Colors.teal[600]!,
-          //     Colors.teal[300]!,
-          //     Colors.teal[200]!,
-          //     Colors.teal[100]!,
-          //     // Color(0xFF6459E2),
-          //     // Colors.blue[400]!,
-          //     // Colors.blue[100]!,
-          //   ],
-          // ),
         ),
         alignment: Alignment.center,
         child: Column(

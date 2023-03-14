@@ -18,57 +18,68 @@ class _card_infoState extends State<card_info> {
   @override
   Widget build(BuildContext context) {
     try {
-      Map<String, dynamic> _map = widget.idk;
-      List alist = widget.idk.keys.toList();
-      alist.sort();
-      return Column(
-        children: alist.map((e) {
-          final textcontroller = TextEditingController(text: _map[e]);
-          return Card(
-            child: Container(
-              width: 339,
-              height: 100 / 2,
-              child: TextField(
-                controller: textcontroller,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  suffixIcon: Icon(Icons.delete_rounded),
-                ),
-              ),
-            ),
-            /*
-            child: TextFormField(
-              initialValue: _map[e],
-              decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  onPressed: () => setState(
-                    () {
-                      widget.delete(e);
-                    },
+      if (widget.idk.length != 0) {
+        Map<String, dynamic> _map = widget.idk;
+        List alist = widget.idk.keys.toList();
+        alist.sort((a, b) => int.parse(a).compareTo(int.parse(b)));
+        return Column(
+          children: alist.map((e) {
+            final textcontroller = TextEditingController(text: _map[e]);
+            return Card(
+              child: Container(
+                width: 339,
+                height: 100 / 2,
+                child: TextField(
+                  controller: textcontroller,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.delete_rounded),
+                      onPressed: () {
+                        widget.delete(e);
+                      },
+                    ),
                   ),
-                  icon: Icon(Icons.delete_rounded),
                 ),
               ),
-              onChanged: (value) {},
+              /*
+              child: TextFormField(
+                initialValue: _map[e],
+                decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    onPressed: () => setState(
+                      () {
+                        widget.delete(e);
+                      },
+                    ),
+                    icon: Icon(Icons.delete_rounded),
+                  ),
+                ),
+                onChanged: (value) {},
+              ),
+              */
+            );
+          }).toList(),
+        );
+      } else {
+        return Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 2,
             ),
-            */
-          );
-        }).toList(),
-      );
+            Container(
+              child: Text(
+                "ADD A TASK",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              ),
+              alignment: Alignment.center,
+            ),
+          ],
+        );
+      }
     } catch (e) {
-      return Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 2,
-          ),
-          Container(
-            child: Text(
-              "ADD A TASK",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-            ),
-            alignment: Alignment.center,
-          ),
-        ],
+      return Center(
+        child: Text(e.toString()),
       );
     }
   }

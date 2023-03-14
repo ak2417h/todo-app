@@ -16,7 +16,6 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   @override
-  Map<String, dynamic>? _map = new Map();
   Widget build(BuildContext context) {
     String task = "";
 
@@ -40,7 +39,7 @@ class _homeState extends State<home> {
               try {
                 return Scaffold(
                   body: Center(
-                    child: Column(
+                    child: ListView(
                       children: [
                         card_info(
                           idk: snapshot.data.data()["info"],
@@ -60,9 +59,6 @@ class _homeState extends State<home> {
                             );
                           },
                         ),
-                        // Text(
-                        //   snapshot.data.data()["info"].values.toString(),
-                        // )
                       ],
                     ),
                   ),
@@ -102,15 +98,18 @@ class _homeState extends State<home> {
                                               content:
                                                   Text("Please Enter A Task")));
                                     } else {
-                                      if (snapshot.data.data().length == 1) {
+                                      if (snapshot.data.data().length == 1 ||
+                                          snapshot.data.data()["info"].length ==
+                                              0) {
                                         Map<String, dynamic> _map = {
-                                          "info": {"Task 1": task}
+                                          "info": {"0": task},
+                                          "name": snapshot.data.data()["name"],
                                         };
                                         FirebaseFirestore.instance
                                             .collection("user")
                                             .doc(FirebaseAuth
                                                 .instance.currentUser?.uid)
-                                            .set(_map, SetOptions(merge: true));
+                                            .set(_map);
                                       } else {
                                         Map<String, dynamic> _map =
                                             snapshot.data.data()["info"];
@@ -118,22 +117,25 @@ class _homeState extends State<home> {
                                             .data()["info"]
                                             .keys
                                             .toList();
-                                        tempList.sort();
-                                        int tempInt = int.parse(tempList
-                                                .elementAt(snapshot.data
+                                        tempList.sort((a, b) => int.parse(a)
+                                            .compareTo(int.parse(b)));
+                                        int tempInt = int.parse(
+                                                tempList.elementAt(snapshot.data
                                                         .data()["info"]
                                                         .length -
-                                                    1)
-                                                .split(" ")[1]) +
+                                                    1)) +
                                             1;
-                                        _map["Task " + tempInt.toString()] =
-                                            task;
+                                        _map[tempInt.toString()] = task;
                                         FirebaseFirestore.instance
                                             .collection("user")
                                             .doc(FirebaseAuth
                                                 .instance.currentUser?.uid)
-                                            .set({"info": _map},
-                                                SetOptions(merge: true));
+                                            .set(
+                                          {
+                                            "info": _map,
+                                            "name": snapshot.data.data()["name"]
+                                          },
+                                        );
                                       }
                                       Navigator.pop(context);
                                     }

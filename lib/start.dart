@@ -51,7 +51,7 @@ class _startClassState extends State<startClass> {
               child: Text(
                 "Welcome " + snapshot.data.data()!["name"] + "!",
                 style: TextStyle(
-                  fontSize: 35,
+                  fontSize: 45,
                 ),
               ),
             );
