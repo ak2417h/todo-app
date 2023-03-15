@@ -27,10 +27,6 @@ class _signupState extends State<signup> {
           .collection("user")
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .set({"name": _name, "info": {}});
-      // FirebaseFirestore.instance
-      //   .collection("user")
-      //   .doc(FirebaseAuth.instance.currentUser!.uid)
-      //   .set({"info": {"Task 1" : " "}},SetOptions(merge: true));
       Navigator.pushNamed(context, "mainpage");
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context)
@@ -50,9 +46,6 @@ class _signupState extends State<signup> {
             Colors.indigo[600]!,
             Colors.indigo[400]!,
             Colors.indigo[100]!,
-            // Color(0xFF6459E2),
-            // Colors.blue[400]!,
-            // Colors.blue[100]!,
           ],
         )),
         child: Column(
@@ -72,8 +65,21 @@ class _signupState extends State<signup> {
                 ),
               ),
             ),
+            // Container(
+            //   alignment: Alignment.centerLeft,
+            //   margin: EdgeInsets.only(left: 35),
+            //   child: Row(
+            //     children: [
+            //       TextButton(
+            //         onPressed: () => null,
+            //         // child: Image(image: ),
+            //         child: Text("HI"),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.15,
+              height: MediaQuery.of(context).size.height * 0.12,
             ),
             Container(
               alignment: Alignment.center,

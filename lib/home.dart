@@ -42,6 +42,18 @@ class _homeState extends State<home> {
                     child: ListView(
                       children: [
                         card_info(
+                          change: (k, v) {
+                            Map<String, dynamic> tm =
+                                snapshot.data.data()["info"];
+                            tm[k] = v;
+                            FirebaseFirestore.instance
+                                .collection("user")
+                                .doc(FirebaseAuth.instance.currentUser?.uid)
+                                .set({
+                              "name": snapshot.data.data()["name"],
+                              "info" : tm,
+                            });
+                          },
                           idk: snapshot.data.data()["info"],
                           delete: (value) {
                             Map<String, dynamic> temp_map =
