@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'firebase_options.dart';
 import 'dart:async';
 // import 'package:google_sign_in/google_sign_in.dart';
@@ -23,10 +24,10 @@ class _acc_settingState extends State<acc_setting> {
   @override
   final user = FirebaseAuth.instance.currentUser;
   // String email = user?.email;
-  String email = FirebaseAuth.instance.currentUser!.email.toString();
+  String email = "";
   var fieldText = TextEditingController(
       text: FirebaseAuth.instance.currentUser?.email.toString());
-  // final fieldText2 = TextEditingController(text: "");
+  final fieldText2 = TextEditingController(text: "");
   bool show = false;
   String password = "";
 
@@ -66,16 +67,10 @@ class _acc_settingState extends State<acc_setting> {
                       ),
                       onPressed: () async {
                         try {
-                          if (FirebaseAuth.instance.currentUser == null) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text("Timed out log in again")));
-                            Navigator.pushNamed(context, "login");
-                          }
                           FirebaseFirestore.instance
                               .collection("user")
                               .doc(FirebaseAuth.instance.currentUser?.uid)
                               .delete();
-                          // FirebaseAuth.instance.currentUser?.refreshToken;
                           // await user?.reauthenticateWithCredential();
                           await user?.delete();
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -134,7 +129,6 @@ class _acc_settingState extends State<acc_setting> {
                 // initialValue: email,
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
-                    // Icon to
                     icon: Icon(Icons.clear), // clear text
                     onPressed: () => fieldText.clear(),
                   ),
@@ -143,27 +137,25 @@ class _acc_settingState extends State<acc_setting> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(24.0),
                     borderSide: BorderSide(
-                      // width: 3,
                       color: Colors.white,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(24.0),
                     borderSide: BorderSide(
-                      // width: 3,
                       color: Colors.white,
                     ),
                   ),
                   hintText: "Change email",
                 ),
-                onChanged: (value) => email = value,
+                onChanged: (value) => email = fieldText.text.toString(),
               ),
               margin: EdgeInsets.only(bottom: 15),
             ),
             Container(
               width: 350,
               child: TextField(
-                // controller: fieldText2,
+                controller: fieldText2,
                 obscureText: !show,
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
@@ -193,7 +185,7 @@ class _acc_settingState extends State<acc_setting> {
                   ),
                   hintText: "Change password",
                 ),
-                onChanged: (value) => password = value,
+                onChanged: (value) => password = fieldText2.text.toString(),
               ),
             ),
             Container(
@@ -213,23 +205,27 @@ class _acc_settingState extends State<acc_setting> {
                   ),
                   onPressed: () async {
                     try {
-                      if (email == "" ||
-                          email == null ||
-                          password == "" ||
-                          password == null) {
+                      if ((email == "" ||
+                              email ==
+                                  FirebaseAuth.instance.currentUser?.email) &&
+                          (password == "" || password == null)) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content:
                                 Text("Please enter an email and/or password")));
                       } else {
-                        await user?.updateEmail(email.toString());
-                        await user?.updatePassword(password);
+                        if ((email != "" &&
+                            email != FirebaseAuth.instance.currentUser?.email))
+                          await user?.updateEmail(email);
+                        else {
+                          await user?.updatePassword(password);
+                        }
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text("All changes saved")));
                       }
                     } catch (e) {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(SnackBar(content: Text(e.toString())));
-                      signOut();
+                      // signOut();
                     }
                   }),
             ),

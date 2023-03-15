@@ -27,7 +27,7 @@ class _card_infoState extends State<card_info> {
             final textcontroller = TextEditingController(text: _map[e]);
             return Card(
               child: Container(
-                width: 339,
+                width: MediaQuery.of(context).size.width / 1.1,
                 height: 100 / 2,
                 child: TextField(
                   controller: textcontroller,
@@ -42,22 +42,6 @@ class _card_infoState extends State<card_info> {
                   ),
                 ),
               ),
-              /*
-              child: TextFormField(
-                initialValue: _map[e],
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    onPressed: () => setState(
-                      () {
-                        widget.delete(e);
-                      },
-                    ),
-                    icon: Icon(Icons.delete_rounded),
-                  ),
-                ),
-                onChanged: (value) {},
-              ),
-              */
             );
           }).toList(),
         );

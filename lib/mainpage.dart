@@ -26,38 +26,6 @@ class _mainpageState extends State<mainpage> {
       startClass(),
       home(),
       acc_setting(),
-      /*
-      Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                Navigator.pushNamed(context, "login");
-              },
-              child: Text("Logout"),
-            ),
-            TextButton(
-              onPressed: () async {
-                try {
-                  FirebaseFirestore.instance
-                      .collection("user")
-                      .doc(FirebaseAuth.instance.currentUser!.uid)
-                      .delete();
-                  await FirebaseAuth.instance.currentUser?.delete();
-                  Navigator.pushNamed(context, "signup");
-                } catch (e) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(e.toString())));
-                }
-              },
-              child: Text("Delete Account"),
-            ),
-          ],
-        ),
-      ),
-      */
     ];
     return Scaffold(
       body: Container(
@@ -65,6 +33,7 @@ class _mainpageState extends State<mainpage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.indigo[100],
+        selectedItemColor: Colors.indigo[500],
         currentIndex: ci,
         items: [
           BottomNavigationBarItem(

@@ -26,7 +26,7 @@ class _signupState extends State<signup> {
       FirebaseFirestore.instance
           .collection("user")
           .doc(FirebaseAuth.instance.currentUser!.uid)
-          .set({"name": _name});
+          .set({"name": _name, "info": {}});
       // FirebaseFirestore.instance
       //   .collection("user")
       //   .doc(FirebaseAuth.instance.currentUser!.uid)
